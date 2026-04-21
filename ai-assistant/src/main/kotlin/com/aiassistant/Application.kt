@@ -51,10 +51,16 @@ fun main() {
 
     val telegramToken = env["TELEGRAM_BOT_TOKEN"]
     if (!telegramToken.isNullOrBlank()) {
+        val allowedUsers = (env["TELEGRAM_ALLOWED_USERS"] ?: "351153237")
+            .split(",")
+            .map { it.trim() }
+            .toSet()
+
         val telegramBot = TelegramAdapter.create(
             token = telegramToken,
             username = env["TELEGRAM_BOT_USERNAME"] ?: "AIAssistantBot",
-            adminSkill = adminSkill
+            adminSkill = adminSkill,
+            allowedUserIds = allowedUsers
         )
 
         val executor = TelegramLongPollingBot(telegramBot)

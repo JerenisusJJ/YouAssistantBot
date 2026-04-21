@@ -10,31 +10,45 @@ class TelegramAdapterTest : DescribeSpec({
     describe("TelegramAdapter") {
 
         val mockAdminSkill = mockk<AdminSkill>()
-        lateinit var adapter: TelegramAdapter
-
-        beforeEach {
-            adapter = TelegramAdapter.create(
-                token = "test-token:TestAuth",
-                username = "TestBot",
-                adminSkill = mockAdminSkill
-            )
-        }
 
         describe("config") {
             it("should have correct token") {
+                val adapter = TelegramAdapter.create(
+                    token = "test-token:TestAuth",
+                    username = "TestBot",
+                    adminSkill = mockAdminSkill,
+                    allowedUserIds = setOf("351153237")
+                )
                 adapter.botToken shouldBe "test-token:TestAuth"
             }
 
             it("should have correct username") {
+                val adapter = TelegramAdapter.create(
+                    token = "test-token:TestAuth",
+                    username = "TestBot",
+                    adminSkill = mockAdminSkill,
+                    allowedUserIds = setOf("351153237")
+                )
                 adapter.botUsername shouldBe "TestBot"
             }
 
-            it("should return token from getBotToken") {
+            it("should allow custom user ids") {
+                val adapter = TelegramAdapter.create(
+                    token = "test-token:TestAuth",
+                    username = "TestBot",
+                    adminSkill = mockAdminSkill,
+                    allowedUserIds = setOf("111", "222", "351153237")
+                )
                 adapter.botToken shouldBe "test-token:TestAuth"
             }
 
-            it("should return username from getBotUsername") {
-                adapter.botUsername shouldBe "TestBot"
+            it("should default to only user 351153237") {
+                val adapter = TelegramAdapter.create(
+                    token = "test-token:TestAuth",
+                    username = "TestBot",
+                    adminSkill = mockAdminSkill
+                )
+                adapter.botToken shouldBe "test-token:TestAuth"
             }
         }
 

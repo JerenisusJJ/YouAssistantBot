@@ -7,7 +7,8 @@ import org.telegram.telegrambots.longpolling.LongPollingBot
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 
 class TelegramAdapter(
-    private val adminSkill: AdminSkill
+    private val adminSkill: AdminSkill,
+    private val allowedUserIds: Set<String> = setOf("351153237")
 ) : LongPollingBot() {
 
     lateinit var botToken: String
@@ -27,6 +28,15 @@ class TelegramAdapter(
 
         if (text.startsWith("/")) return
 
+        if (userId !in allowedUserIds) {
+            val reply = SendMessage.builder()
+                .chatId(chatId)
+                .text("Доступ запрещён. Ваш ID: $userId")
+                .build()
+            execute(reply)
+            return
+        }
+
         val request = SkillRequest(userId = userId, message = text)
 
         val response = kotlinx.coroutines.runBlocking {
@@ -45,9 +55,10 @@ class TelegramAdapter(
         fun create(
             token: String,
             username: String,
-            adminSkill: AdminSkill
+            adminSkill: AdminSkill,
+            allowedUserIds: Set<String> = setOf("351153237")
         ): TelegramAdapter {
-            val adapter = TelegramAdapter(adminSkill)
+            val adapter = TelegramAdapter(adminSkill, allowedUserIds)
             adapter.botToken = token
             adapter.botUsername = username
             return adapter
