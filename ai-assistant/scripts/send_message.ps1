@@ -6,7 +6,7 @@ param(
 )
 
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-$BotToken = "493225373:AAFXJhOC-W3lca3BaG2FR61EevyxEXkzOfs"
+$BotToken = "493225373:AAGOCEpmphzsushZ-vC5KO5mGHp-jiB6GyE"
 
 $url = "https://api.telegram.org/bot$BotToken/sendMessage"
 $body = @{
