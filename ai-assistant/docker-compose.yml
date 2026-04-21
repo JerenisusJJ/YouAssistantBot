@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=ai_assistant
+      - DB_USER=${DB_USER:-ai_user}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - postgres
+    volumes:
+      - ./config:/app/config:ro
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: ai_assistant
+      POSTGRES_USER: ${DB_USER:-ai_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
