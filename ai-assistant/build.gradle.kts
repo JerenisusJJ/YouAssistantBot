@@ -19,6 +19,7 @@ application {
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://repo.lightbend.com/releases") }
 }
 
 dependencies {
