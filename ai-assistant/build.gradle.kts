@@ -1,7 +1,7 @@
 plugins {
     application
     kotlin("jvm") version "1.9.10"
-    id("io.ktor.plugin") version "2.3.5"
+    id("io.ktor.plugin") version "2.2.4"
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
     id("io.gitlab.arturbosch.detekt") version "1.23.1"
     jacoco
@@ -24,10 +24,10 @@ repositories {
 
 dependencies {
     // Ktor
-    implementation("io.ktor:ktor-server-core:2.3.5")
-    implementation("io.ktor:ktor-server-netty:2.3.5")
-    implementation("io.ktor:ktor-server-content-negotiation:2.3.5")
-    implementation("io.ktor:ktor-serialization-gson:2.3.5")
+    implementation("io.ktor:ktor-server-core:2.2.4")
+    implementation("io.ktor:ktor-server-netty:2.2.4")
+    implementation("io.ktor:ktor-server-content-negotiation:2.2.4")
+    implementation("io.ktor:ktor-serialization-gson:2.2.4")
 
     // PostgreSQL
     implementation("org.postgresql:postgresql:42.6.0")
@@ -39,12 +39,12 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.4.11")
 
     // Config
-    implementation("com.typesafe:config:1.4.9")
+    implementation("com.typesafe:config:1.4.2")
 
     // Testing
-    testImplementation("io.ktor:ktor-server-tests:2.3.5")
-    testImplementation("io.kotest:kotest-runner-junit5:5.9.2")
-    testImplementation("io.kotest:kotest-assertions-core:5.9.2")
+    testImplementation("io.ktor:ktor-server-tests:2.2.4")
+    testImplementation("io.kotest:kotest-runner-junit5:5.7.2")
+    testImplementation("io.kotest:kotest-assertions-core:5.7.2")
     testImplementation("io.mockk:mockk:1.13.6")
 }
 
